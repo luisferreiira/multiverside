@@ -1,0 +1,49 @@
+/* =========================================================
+   PersonagemForm.css — estilo do formulário de cadastro
+   ---------------------------------------------------------
+   Importado pelo próprio PersonagemForm.jsx.
+   Cores vêm das variáveis do index.css (tema claro/escuro).
+   A caixa ao redor do formulário (.secao) vem do App.css.
+   ========================================================= */
+
+/* Formulário em coluna, com espaço uniforme entre os campos */
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.formulario-titulo {
+  margin: 0;
+}
+
+/* Cada campo: rótulo em cima, input embaixo */
+.formulario-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.formulario-campo span {
+  font-size: 0.875rem;
+  color: var(--cor-texto-suave);
+}
+
+.formulario-campo input,
+.formulario-campo select {
+  width: 100%;
+}
+
+/* Espécie e Raridade lado a lado */
+.formulario-linha {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* Botão de cadastrar ocupa a largura toda */
+.formulario-botao {
+  width: 100%;
+  margin-top: 4px;
+}

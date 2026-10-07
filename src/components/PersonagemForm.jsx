@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./PersonagemForm.css";
 
 function PersonagemForm({ onCadastrar }) {
   const [nome, setNome] = useState("");
@@ -43,24 +44,40 @@ function PersonagemForm({ onCadastrar }) {
   }
 
   return (
-    <form onSubmit={enviar}>
-      <h2>Novo personagem</h2>
+    <form className="formulario" onSubmit={enviar}>
+      <h2 className="formulario-titulo">Novo personagem</h2>
 
-      <label>
-        Nome:
-        <input value={nome} onChange={(e) => setNome(e.target.value)} />
+      <label className="formulario-campo">
+        <span>Nome</span>
+        <input
+          placeholder="Ex.: Starlight"
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
+        />
       </label>
 
-      <label>
-        Espécie:
-        <select value={especie} onChange={(e) => setEspecie(e.target.value)}>
-          <option>Super</option>
-          <option>Humano</option>
-        </select>
-      </label>
+      <div className="formulario-linha">
+        <label className="formulario-campo">
+          <span>Espécie</span>
+          <select value={especie} onChange={(e) => setEspecie(e.target.value)}>
+            <option>Super</option>
+            <option>Humano</option>
+          </select>
+        </label>
 
-      <label>
-        Poder (0 a 100):
+        <label className="formulario-campo">
+          <span>Raridade</span>
+          <select value={raridade} onChange={(e) => setRaridade(e.target.value)}>
+            <option>Comum</option>
+            <option>Raro</option>
+            <option>Épico</option>
+            <option>Lendário</option>
+          </select>
+        </label>
+      </div>
+
+      <label className="formulario-campo">
+        <span>Poder (0 a 100)</span>
         <input
           type="number"
           value={energia}
@@ -68,27 +85,20 @@ function PersonagemForm({ onCadastrar }) {
         />
       </label>
 
-      <label>
-        Personalidade:
+      <label className="formulario-campo">
+        <span>Personalidade</span>
         <input
+          placeholder="Ex.: Corajosa"
           value={personalidade}
           onChange={(e) => setPersonalidade(e.target.value)}
         />
       </label>
 
-      <label>
-        Raridade:
-        <select value={raridade} onChange={(e) => setRaridade(e.target.value)}>
-          <option>Comum</option>
-          <option>Raro</option>
-          <option>Épico</option>
-          <option>Lendário</option>
-        </select>
-      </label>
+      {erro && <p className="mensagem-erro">{erro}</p>}
 
-      {erro && <p style={{ color: "red" }}>{erro}</p>}
-
-      <button type="submit">Cadastrar</button>
+      <button className="formulario-botao" type="submit">
+        Cadastrar
+      </button>
     </form>
   );
 }

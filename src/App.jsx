@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { personagens as personagensIniciais } from "./data/personagens";
 import PersonagemCard from "./components/PersonagemCard";
 import PersonagemForm from "./components/PersonagemForm";
+import "./App.css";
 
 function App() {
   const [personagens, setPersonagens] = useState(() => {
@@ -53,6 +54,14 @@ function App() {
       nomeAbrigo
     );
   }, [nomeAbrigo]);
+
+  // Aplica o tema na página inteira.
+  // O CSS (index.css) troca as cores quando encontra
+  // data-tema="escuro" no elemento <html>.
+  useEffect(() => {
+    document.documentElement.dataset.tema =
+      temaEscuro ? "escuro" : "claro";
+  }, [temaEscuro]);
 
   function adotar(id) {
     const novaLista = personagens.map((personagem) =>
@@ -195,167 +204,237 @@ function App() {
   );
 
   return (
-    <div
-      style={{
-        backgroundColor: temaEscuro
-          ? "#1a1a1a"
-          : "#ffffff",
-        color: temaEscuro
-          ? "#ffffff"
-          : "#000000",
-        minHeight: "100vh",
-        padding: "20px",
-      }}
-    >
-      <h1>{nomeAbrigo}</h1>
+    <div className="app">
+      {/* ===== Cabeçalho ===== */}
+      <header className="cabecalho">
+        <div className="cabecalho-textos">
+          <h1 className="cabecalho-titulo">
+            {nomeAbrigo}
+          </h1>
+          <p className="cabecalho-descricao">
+            Central de gerenciamento de personagens
+            fictícios
+          </p>
+        </div>
 
-      <h2>Painel do abrigo</h2>
-
-      <p>
-        👥 Total de personagens:{" "}
-        {totalPersonagens}
-      </p>
-
-      <p>
-        🟢 Disponíveis: {totalDisponiveis}
-      </p>
-
-      <p>
-        ❤️ Adotados: {totalAdotados}
-      </p>
-
-      <p>
-        ⭐ Favoritos: {totalFavoritos}
-      </p>
-
-      <p>
-        🦸 Supers: {totalSupers}
-      </p>
-
-      <p>
-        👤 Humanos: {totalHumanos}
-      </p>
-
-      <h2>Identidade do abrigo</h2>
-
-      <label>
-        Nome do abrigo:
-        <input
-          type="text"
-          value={nomeAbrigo}
-          onChange={(e) =>
-            setNomeAbrigo(e.target.value)
-          }
-        />
-      </label>
-
-      <br />
-
-      <button
-        onClick={() =>
-          setTemaEscuro(!temaEscuro)
-        }
-      >
-        {temaEscuro
-          ? "☀️ Tema claro"
-          : "🌙 Tema escuro"}
-      </button>
-
-      <PersonagemForm
-        onCadastrar={cadastrar}
-      />
-
-      <h2>Pesquisar</h2>
-
-      <input
-        type="text"
-        placeholder="Buscar personagem..."
-        value={busca}
-        onChange={(e) =>
-          setBusca(e.target.value)
-        }
-      />
-
-      <h2>Filtros</h2>
-
-      <label>
-        Espécie:
-        <select
-          value={filtroEspecie}
-          onChange={(e) =>
-            setFiltroEspecie(e.target.value)
+        <button
+          className="botao-secundario"
+          onClick={() =>
+            setTemaEscuro(!temaEscuro)
           }
         >
-          <option>Todas</option>
-          <option>Super</option>
-          <option>Humano</option>
-        </select>
-      </label>
+          {temaEscuro
+            ? "☀️ Tema claro"
+            : "🌙 Tema escuro"}
+        </button>
+      </header>
 
-      <br />
+      <main className="conteudo">
+        {/* ===== Painel do abrigo ===== */}
+        <section className="secao">
+          <h2>Painel do abrigo</h2>
 
-      <label>
-        Personalidade:
-        <select
-          value={filtroPersonalidade}
-          onChange={(e) =>
-            setFiltroPersonalidade(e.target.value)
-          }
-        >
-          <option>Todas</option>
-          <option>Narcisista</option>
-          <option>Impulsivo</option>
-          <option>Medroso</option>
-        </select>
-      </label>
+          <div className="painel-grade">
+            <div className="painel-item">
+              <span className="painel-icone">👥</span>
+              <span className="painel-numero">
+                {totalPersonagens}
+              </span>
+              <span className="painel-rotulo">
+                Total de personagens
+              </span>
+            </div>
 
-      <br />
+            <div className="painel-item">
+              <span className="painel-icone">🟢</span>
+              <span className="painel-numero">
+                {totalDisponiveis}
+              </span>
+              <span className="painel-rotulo">
+                Disponíveis
+              </span>
+            </div>
 
-      <label>
-        Raridade:
-        <select
-          value={filtroRaridade}
-          onChange={(e) =>
-            setFiltroRaridade(e.target.value)
-          }
-        >
-          <option>Todas</option>
-          <option>Comum</option>
-          <option>Raro</option>
-          <option>Épico</option>
-          <option>Lendário</option>
-        </select>
-      </label>
+            <div className="painel-item">
+              <span className="painel-icone">❤️</span>
+              <span className="painel-numero">
+                {totalAdotados}
+              </span>
+              <span className="painel-rotulo">
+                Adotados
+              </span>
+            </div>
 
-      <br />
+            <div className="painel-item">
+              <span className="painel-icone">⭐</span>
+              <span className="painel-numero">
+                {totalFavoritos}
+              </span>
+              <span className="painel-rotulo">
+                Favoritos
+              </span>
+            </div>
 
-      <button
-        onClick={() =>
-          setMostrarFavoritos(!mostrarFavoritos)
-        }
-      >
-        {mostrarFavoritos
-          ? "❤️ Mostrar todos"
-          : "🤍 Meus favoritos"}
-      </button>
+            <div className="painel-item">
+              <span className="painel-icone">🦸</span>
+              <span className="painel-numero">
+                {totalSupers}
+              </span>
+              <span className="painel-rotulo">
+                Supers
+              </span>
+            </div>
 
-      <h2>Personagens</h2>
+            <div className="painel-item">
+              <span className="painel-icone">👤</span>
+              <span className="painel-numero">
+                {totalHumanos}
+              </span>
+              <span className="painel-rotulo">
+                Humanos
+              </span>
+            </div>
+          </div>
+        </section>
 
-      {personagensFiltrados.length === 0 && (
-        <p>Nenhum personagem encontrado.</p>
-      )}
+        <div className="colunas">
+          {/* ===== Coluna lateral ===== */}
+          <aside className="coluna-lateral">
+            <section className="secao">
+              <h2>Identidade do abrigo</h2>
 
-      {personagensFiltrados.map((personagem) => (
-        <PersonagemCard
-          key={personagem.id}
-          personagem={personagem}
-          onAdotar={adotar}
-          onEditar={editar}
-          onRemover={remover}
-          onFavoritar={favoritar}
-          temaEscuro={temaEscuro}
-        />
-      ))}
+              <label className="campo">
+                <span>Nome do abrigo</span>
+                <input
+                  type="text"
+                  value={nomeAbrigo}
+                  onChange={(e) =>
+                    setNomeAbrigo(e.target.value)
+                  }
+                />
+              </label>
+            </section>
+
+            <section className="secao">
+              <PersonagemForm
+                onCadastrar={cadastrar}
+              />
+            </section>
+          </aside>
+
+          {/* ===== Coluna principal ===== */}
+          <div className="coluna-principal">
+            <section className="secao">
+              <h2>Encontre seu companheiro</h2>
+
+              <label className="campo">
+                <span>Pesquisar</span>
+                <input
+                  type="search"
+                  placeholder="Buscar personagem..."
+                  value={busca}
+                  onChange={(e) =>
+                    setBusca(e.target.value)
+                  }
+                />
+              </label>
+
+              <div className="filtros">
+                <label className="campo">
+                  <span>Espécie</span>
+                  <select
+                    value={filtroEspecie}
+                    onChange={(e) =>
+                      setFiltroEspecie(e.target.value)
+                    }
+                  >
+                    <option>Todas</option>
+                    <option>Super</option>
+                    <option>Humano</option>
+                  </select>
+                </label>
+
+                <label className="campo">
+                  <span>Personalidade</span>
+                  <select
+                    value={filtroPersonalidade}
+                    onChange={(e) =>
+                      setFiltroPersonalidade(e.target.value)
+                    }
+                  >
+                    <option>Todas</option>
+                    <option>Narcisista</option>
+                    <option>Impulsivo</option>
+                    <option>Medroso</option>
+                  </select>
+                </label>
+
+                <label className="campo">
+                  <span>Raridade</span>
+                  <select
+                    value={filtroRaridade}
+                    onChange={(e) =>
+                      setFiltroRaridade(e.target.value)
+                    }
+                  >
+                    <option>Todas</option>
+                    <option>Comum</option>
+                    <option>Raro</option>
+                    <option>Épico</option>
+                    <option>Lendário</option>
+                  </select>
+                </label>
+              </div>
+
+              <button
+                className={
+                  mostrarFavoritos
+                    ? "botao-secundario ativo"
+                    : "botao-secundario"
+                }
+                aria-pressed={mostrarFavoritos}
+                onClick={() =>
+                  setMostrarFavoritos(!mostrarFavoritos)
+                }
+              >
+                {mostrarFavoritos
+                  ? "❤️ Mostrar todos"
+                  : "🤍 Meus favoritos"}
+              </button>
+            </section>
+
+            {/* ===== Lista de personagens ===== */}
+            <section>
+              <div className="lista-topo">
+                <h2>Personagens</h2>
+                <span className="lista-contador">
+                  {personagensFiltrados.length} de{" "}
+                  {totalPersonagens}
+                </span>
+              </div>
+
+              {personagensFiltrados.length === 0 && (
+                <p className="mensagem-vazia">
+                  Nenhum personagem encontrado.
+                </p>
+              )}
+
+              <div className="grade-personagens">
+                {personagensFiltrados.map((personagem) => (
+                  <PersonagemCard
+                    key={personagem.id}
+                    personagem={personagem}
+                    onAdotar={adotar}
+                    onEditar={editar}
+                    onRemover={remover}
+                    onFavoritar={favoritar}
+                  />
+                ))}
+              </div>
+            </section>
+          </div>
+        </div>
+      </main>
     </div>
   );
 }

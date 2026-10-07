@@ -1,0 +1,248 @@
+/* =========================================================
+   PersonagemCard.css — estilo do card de personagem
+   ---------------------------------------------------------
+   Importado pelo próprio PersonagemCard.jsx.
+   Cores vêm das variáveis do index.css (tema claro/escuro).
+
+   Seções:
+   1. Estrutura do card
+   2. Imagem e placeholder
+   3. Selos (raridade e status)
+   4. Corpo: título, subtítulo e barra de poder
+   5. Detalhes
+   6. Botões de ação
+   7. Modo de edição
+   ========================================================= */
+
+/* ---------- 1. Estrutura do card ---------- */
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  transition: transform 0.2s, box-shadow 0.2s;
+  /* Cada card tem a altura do próprio conteúdo
+     (não estica quando o vizinho abre os detalhes) */
+  align-self: start;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+/* Card de personagem já adotado: imagem mais apagada */
+.card-adotado .card-imagem {
+  filter: grayscale(0.85);
+  opacity: 0.6;
+}
+
+/* ---------- 2. Imagem e placeholder ---------- */
+.card-imagem {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* A cor de fundo vem da raridade (seção 3).
+     O gradiente escurece um pouco a cor, garantindo
+     contraste com a letra branca nos dois temas. */
+  background-color: var(--cor-raridade, var(--cor-comum));
+  background-image: linear-gradient(
+    160deg,
+    rgba(0, 0, 0, 0.05),
+    rgba(0, 0, 0, 0.35)
+  );
+}
+
+.card-imagem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* Inicial do nome, exibida quando não há imagem */
+.card-inicial {
+  font-size: 4rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* ---------- 3. Selos ---------- */
+.selo {
+  display: inline-block;
+  padding: 2px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* Selo de raridade, no canto da imagem */
+.selo-raridade {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: #ffffff;
+  /* Fundo escuro translúcido: legível sobre qualquer cor */
+  background-color: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(2px);
+}
+
+/* Cada raridade define a variável --cor-raridade,
+   usada tanto no fundo da imagem quanto no selo. */
+.raridade-comum {
+  --cor-raridade: var(--cor-comum);
+}
+
+.raridade-raro {
+  --cor-raridade: var(--cor-raro);
+}
+
+.raridade-epico {
+  --cor-raridade: var(--cor-epico);
+}
+
+.raridade-lendario {
+  --cor-raridade: var(--cor-lendario);
+}
+
+/* Selo de status */
+.status-disponivel {
+  color: var(--cor-sucesso);
+  background-color: var(--cor-sucesso-suave);
+}
+
+.status-adotado {
+  color: var(--cor-texto-suave);
+  background-color: var(--cor-superficie-2);
+}
+
+/* ---------- 4. Corpo do card ---------- */
+.card-corpo {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 10px;
+  padding: 16px;
+}
+
+.card-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.card-titulo {
+  margin: 0;
+  word-break: break-word;
+}
+
+.card-subtitulo {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--cor-texto-suave);
+}
+
+.card-poder {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* Barra de poder (elemento <progress>) */
+.barra-poder {
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border: none;
+  border-radius: 999px;
+  overflow: hidden;
+  background-color: var(--cor-superficie-2);
+}
+
+/* Chrome, Edge, Safari */
+.barra-poder::-webkit-progress-bar {
+  background-color: var(--cor-superficie-2);
+  border-radius: 999px;
+}
+
+.barra-poder::-webkit-progress-value {
+  background-color: var(--cor-destaque);
+  border-radius: 999px;
+}
+
+/* Firefox */
+.barra-poder::-moz-progress-bar {
+  background-color: var(--cor-destaque);
+  border-radius: 999px;
+}
+
+/* ---------- 5. Detalhes ---------- */
+.detalhes {
+  padding: 12px;
+  font-size: 0.9rem;
+  border-radius: var(--raio-pequeno);
+  background-color: var(--cor-superficie-2);
+}
+
+.detalhes h4 {
+  margin-bottom: 8px;
+}
+
+.detalhes p {
+  margin: 0 0 4px;
+}
+
+.detalhes strong {
+  color: var(--cor-texto-suave);
+  font-weight: 600;
+}
+
+/* ---------- 6. Botões de ação ---------- */
+.card-acoes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: auto; /* empurra os botões para o rodapé do card */
+}
+
+/* Adotar ocupa a linha inteira, por ser a ação principal */
+.botao-adotar {
+  grid-column: 1 / -1;
+}
+
+.card-acoes button {
+  padding: 8px 10px;
+  font-size: 0.9rem;
+}
+
+/* ---------- 7. Modo de edição ---------- */
+.card-edicao {
+  gap: 12px;
+  padding: 16px;
+  border-color: var(--cor-destaque);
+}
+
+.card-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card-campo span {
+  font-size: 0.875rem;
+  color: var(--cor-texto-suave);
+}
+
+.card-campo input {
+  width: 100%;
+}

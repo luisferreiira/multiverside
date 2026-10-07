@@ -1,4 +1,14 @@
 import { useState } from "react";
+import "./PersonagemCard.css";
+
+// Transforma um texto em nome de classe CSS:
+// "Lendário" -> "lendario", "Disponível" -> "disponivel"
+function paraClasse(texto) {
+  return texto
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+}
 
 function PersonagemCard({
   personagem,
@@ -19,6 +29,12 @@ function PersonagemCard({
   );
 
   const [erro, setErro] = useState("");
+
+  // Controla se a imagem falhou ao carregar
+  // (arquivo inexistente ou caminho vazio).
+  const [imagemComErro, setImagemComErro] = useState(false);
+
+  const temImagem = personagem.imagem && !imagemComErro;
 
   function salvar() {
     if (nome.trim() === "" || personalidade.trim() === "") {
@@ -60,17 +76,19 @@ function PersonagemCard({
 
   if (editando) {
     return (
-      <div className="card">
-        <label>
-          Nome:
+      <div className="card card-edicao">
+        <h3 className="card-titulo">Editar personagem</h3>
+
+        <label className="card-campo">
+          <span>Nome</span>
           <input
             value={nome}
             onChange={(e) => setNome(e.target.value)}
           />
         </label>
 
-        <label>
-          Poder (0 a 100):
+        <label className="card-campo">
+          <span>Poder (0 a 100)</span>
           <input
             type="number"
             value={energia}
@@ -78,103 +96,168 @@ function PersonagemCard({
           />
         </label>
 
-        <label>
-          Personalidade:
+        <label className="card-campo">
+          <span>Personalidade</span>
           <input
             value={personalidade}
             onChange={(e) => setPersonalidade(e.target.value)}
           />
         </label>
 
-        {erro && (
-          <p style={{ color: "red" }}>
-            {erro}
-          </p>
-        )}
+        {erro && <p className="mensagem-erro">{erro}</p>}
 
-        <button onClick={salvar}>
-          Salvar
-        </button>
+        <div className="card-acoes">
+          <button onClick={salvar}>
+            Salvar
+          </button>
 
-        <button onClick={cancelar}>
-          Cancelar
-        </button>
+          <button
+            className="botao-secundario"
+            onClick={cancelar}
+          >
+            Cancelar
+          </button>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="card">
-      <h3>{personagem.nome}</h3>
+    <div className={adotado ? "card card-adotado" : "card"}>
+      {/* ===== Imagem (ou placeholder com a inicial) ===== */}
+      <div
+        className={`card-imagem raridade-${paraClasse(
+          personagem.raridade
+        )}`}
+      >
+        {temImagem ? (
+          <img
+            src={personagem.imagem}
+            alt={personagem.nome}
+            onError={() => setImagemComErro(true)}
+          />
+        ) : (
+          <span className="card-inicial" aria-hidden="true">
+            {personagem.nome.charAt(0).toUpperCase()}
+          </span>
+        )}
 
-      <p>
-        {personagem.especie} | {personagem.personalidade}
-      </p>
+        <span
+          className={`selo selo-raridade raridade-${paraClasse(
+            personagem.raridade
+          )}`}
+        >
+          {personagem.raridade}
+        </span>
+      </div>
 
-      <p>Poder: {personagem.energia}</p>
+      {/* ===== Informações principais ===== */}
+      <div className="card-corpo">
+        <div className="card-cabecalho">
+          <h3 className="card-titulo">{personagem.nome}</h3>
 
-      <p>Raridade: {personagem.raridade}</p>
-
-      <p>Status: {personagem.status}</p>
-
-      <button onClick={alternarDetalhes}>
-        {mostrarDetalhes ? "Ocultar detalhes" : "Ver detalhes"}
-      </button>
-
-      {mostrarDetalhes && (
-        <div className="detalhes">
-          <h4>Detalhes do personagem</h4>
-
-          <p>
-            <strong>Nome:</strong> {personagem.nome}
-          </p>
-
-          <p>
-            <strong>Obra:</strong> {personagem.obra}
-          </p>
-
-          <p>
-            <strong>Espécie:</strong> {personagem.especie}
-          </p>
-
-          <p>
-            <strong>Poder:</strong> {personagem.energia}
-          </p>
-
-          <p>
-            <strong>Personalidade:</strong> {personagem.personalidade}
-          </p>
-
-          <p>
-            <strong>Raridade:</strong> {personagem.raridade}
-          </p>
-
-          <p>
-            <strong>Status:</strong> {personagem.status}
-          </p>
+          <span
+            className={`selo selo-status status-${paraClasse(
+              personagem.status
+            )}`}
+          >
+            {personagem.status}
+          </span>
         </div>
-      )}
 
-      <button
-        onClick={() => onFavoritar(personagem.id)}
-      >
-        {personagem.favorito ? "❤️ Favorito" : "🤍 Favoritar"}
-      </button>
+        <p className="card-subtitulo">
+          {personagem.especie} | {personagem.personalidade}
+        </p>
 
-      <button
-        disabled={adotado}
-        onClick={() => onAdotar(personagem.id)}
-      >
-        {adotado ? "Já adotado" : "Adotar"}
-      </button>
+        <div className="card-poder">
+          <span>Poder: {personagem.energia}</span>
+          <progress
+            className="barra-poder"
+            max="100"
+            value={personagem.energia}
+          >
+            {personagem.energia}%
+          </progress>
+        </div>
 
-      <button onClick={() => setEditando(true)}>
-        Editar
-      </button>
+        {mostrarDetalhes && (
+          <div className="detalhes">
+            <h4>Detalhes do personagem</h4>
 
-      <button onClick={() => onRemover(personagem.id)}>
-        Remover
-      </button>
+            <p>
+              <strong>Nome:</strong> {personagem.nome}
+            </p>
+
+            <p>
+              <strong>Obra:</strong> {personagem.obra}
+            </p>
+
+            <p>
+              <strong>Espécie:</strong> {personagem.especie}
+            </p>
+
+            <p>
+              <strong>Poder:</strong> {personagem.energia}
+            </p>
+
+            <p>
+              <strong>Personalidade:</strong> {personagem.personalidade}
+            </p>
+
+            <p>
+              <strong>Raridade:</strong> {personagem.raridade}
+            </p>
+
+            <p>
+              <strong>Status:</strong> {personagem.status}
+            </p>
+          </div>
+        )}
+
+        {/* ===== Ações ===== */}
+        <div className="card-acoes">
+          <button
+            className="botao-adotar"
+            disabled={adotado}
+            onClick={() => onAdotar(personagem.id)}
+          >
+            {adotado ? "Já adotado" : "Adotar"}
+          </button>
+
+          <button
+            className="botao-secundario"
+            onClick={alternarDetalhes}
+          >
+            {mostrarDetalhes ? "Ocultar detalhes" : "Ver detalhes"}
+          </button>
+
+          <button
+            className={
+              personagem.favorito
+                ? "botao-secundario ativo"
+                : "botao-secundario"
+            }
+            aria-pressed={personagem.favorito === true}
+            onClick={() => onFavoritar(personagem.id)}
+          >
+            {personagem.favorito ? "❤️ Favorito" : "🤍 Favoritar"}
+          </button>
+
+          <button
+            className="botao-secundario"
+            onClick={() => setEditando(true)}
+          >
+            Editar
+          </button>
+
+          <button
+            className="botao-perigo"
+            onClick={() => onRemover(personagem.id)}
+          >
+            Remover
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
