@@ -26,7 +26,7 @@
 .conteudo {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 24px 20px 48px;
+  padding: 40px 20px 48px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -64,11 +64,52 @@
   padding: 20px;
 }
 
+.titulo-secao {
+  width: 100%;
+  margin: 0;
+  padding: 8px 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  border: none;
+  border-radius: var(--raio-pequeno);
+
+  background-color: transparent;
+  color: var(--cor-texto);
+
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-align: left;
+
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.titulo-secao:hover {
+  background-color: var(--cor-destaque-suave);
+  color: var(--cor-destaque);
+}
+
+.titulo-secao:focus-visible {
+  outline: 2px solid var(--cor-destaque);
+  outline-offset: 2px;
+}
+
+.conteudo-secao {
+  margin-top: 16px;
+}
+
 /* ---------- 4. Painel do abrigo ---------- */
 .painel-grade {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   gap: 12px;
+  margin-top: 16px;
 }
 
 .painel-item {
@@ -168,6 +209,85 @@
   gap: 16px;
 }
 
+/* MENU */
+.menu-navegacao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 10px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  background-color: var(--cor-superficie);
+}
+
+.menu-navegacao a {
+  padding: 8px 12px;
+  border-radius: var(--raio-pequeno);
+  color: var(--cor-texto);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.menu-navegacao a:hover {
+  background-color: var(--cor-destaque-suave);
+  color: var(--cor-destaque);
+}
+
+.menu-navegacao .botao-tema {
+  padding: 8px 12px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  background-color: transparent;
+  color: var(--cor-texto);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+}
+
+.menu-navegacao .botao-tema:hover {
+  background-color: var(--cor-destaque-suave);
+  color: var(--cor-destaque);
+  border-color: var(--cor-destaque);
+}
+
+/*  rodapé */
+.rodape {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: 32px;
+  padding: 24px 20px;
+  border-top: 1px solid var(--cor-borda);
+  color: var(--cor-texto-suave);
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.rodape strong {
+  color: var(--cor-texto);
+  font-size: 1rem;
+}
+
+.rodape span:last-child {
+  font-size: 0.8rem;
+}
+
+.fa-solid
+{
+  padding-right: 20px;
+}
+
 /* ---------- 8. Responsividade ----------
    Abaixo de 900px a coluna lateral vai para cima
    e tudo fica em uma única coluna.
@@ -175,5 +295,19 @@
 @media (max-width: 900px) {
   .colunas {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .menu-navegacao {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .menu-navegacao a,
+  .menu-navegacao .botao-tema {
+    flex: 1 1 auto;
+    text-align: center;
+    font-size: 0.85rem;
   }
 }
