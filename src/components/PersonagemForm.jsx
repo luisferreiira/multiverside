@@ -8,22 +8,18 @@ function PersonagemForm({ onCadastrar }) {
   const [energia, setEnergia] = useState(50);
   const [personalidade, setPersonalidade] = useState("");
   const [raridade, setRaridade] = useState("Comum");
-  const [imagem, setImagem] = useState("");
   const [erro, setErro] = useState("");
 
+  /* Lógica de cadastrar: valida os campos antes de enviar ao App. */
   function enviar(e) {
     e.preventDefault();
 
-    if (
-      nome.trim() === "" ||
-      obra.trim() === "" ||
-      personalidade.trim() === ""
-    ) {
+    if (!nome.trim() || !obra.trim() || !personalidade.trim()) {
       setErro("Preencha nome, obra e personalidade.");
       return;
     }
 
-    if (energia < 0 || energia > 100) {
+    if (Number(energia) < 0 || Number(energia) > 100) {
       setErro("O poder deve estar entre 0 e 100.");
       return;
     }
@@ -36,7 +32,7 @@ function PersonagemForm({ onCadastrar }) {
       personalidade: personalidade.trim(),
       raridade,
       status: "Disponível",
-      imagem: imagem.trim(),
+      imagem: "",
     });
 
     if (erroDoApp) {
@@ -47,9 +43,10 @@ function PersonagemForm({ onCadastrar }) {
     setErro("");
     setNome("");
     setObra("");
+    setEspecie("Super");
     setPersonalidade("");
     setEnergia(50);
-    setImagem("");
+    setRaridade("Comum");
   }
 
   return (
@@ -58,40 +55,28 @@ function PersonagemForm({ onCadastrar }) {
 
       <label className="formulario-campo">
         <span>Nome</span>
-        <input
-          placeholder="Ex.: Starlight"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
-        />
+        <input placeholder="Ex.: Luz-Estrela" value={nome} onChange={(e) => setNome(e.target.value)} required />
       </label>
 
       <label className="formulario-campo">
         <span>Obra / Universo</span>
-        <input
-          placeholder="Ex.: The Boys"
-          value={obra}
-          onChange={(e) => setObra(e.target.value)}
-        />
+        <input placeholder="Ex.: The Boys" value={obra} onChange={(e) => setObra(e.target.value)} required />
       </label>
 
       <div className="formulario-linha">
         <label className="formulario-campo">
           <span>Espécie</span>
-          <select
-            value={especie}
-            onChange={(e) => setEspecie(e.target.value)}
-          >
+          <select value={especie} onChange={(e) => setEspecie(e.target.value)}>
             <option>Super</option>
             <option>Humano</option>
+            <option>Vampiro</option>
+            <option>Lobisomem</option>
           </select>
         </label>
 
         <label className="formulario-campo">
           <span>Raridade</span>
-          <select
-            value={raridade}
-            onChange={(e) => setRaridade(e.target.value)}
-          >
+          <select value={raridade} onChange={(e) => setRaridade(e.target.value)}>
             <option>Comum</option>
             <option>Raro</option>
             <option>Épico</option>
@@ -102,48 +87,17 @@ function PersonagemForm({ onCadastrar }) {
 
       <label className="formulario-campo">
         <span>Poder (0 a 100)</span>
-        <input
-          type="number"
-          min="0"
-          max="100"
-          value={energia}
-          onChange={(e) => setEnergia(e.target.value)}
-        />
+        <input type="number" min="0" max="100" value={energia} onChange={(e) => setEnergia(e.target.value)} required />
       </label>
 
       <label className="formulario-campo">
         <span>Personalidade</span>
-        <input
-          placeholder="Ex.: Corajosa"
-          value={personalidade}
-          onChange={(e) => setPersonalidade(e.target.value)}
-        />
-      </label>
-
-      <label className="formulario-campo">
-        <span>
-          Imagem
-          <span
-            className="informacao-imagem"
-            title="Use uma URL direta para uma imagem JPG, PNG ou WebP. Prefira uma imagem quadrada ou próxima de 1:1 e com boa resolução."
-          >
-            ⓘ
-          </span>
-        </span>
-
-        <input
-          type="url"
-          placeholder="https://exemplo.com/personagem.jpg"
-          value={imagem}
-          onChange={(e) => setImagem(e.target.value)}
-        />
+        <input placeholder="Ex.: Corajosa" value={personalidade} onChange={(e) => setPersonalidade(e.target.value)} required />
       </label>
 
       {erro && <p className="mensagem-erro">{erro}</p>}
 
-      <button className="formulario-botao" type="submit">
-        Cadastrar
-      </button>
+      <button className="formulario-botao" type="submit">Cadastrar</button>
     </form>
   );
 }

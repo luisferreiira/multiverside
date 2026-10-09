@@ -1,63 +1,71 @@
-/* =========================================================
-   App.css — LAYOUT da página principal (App.jsx)
-   ---------------------------------------------------------
-   As cores vêm das variáveis do index.css, por isso este
-   arquivo funciona igual nos temas claro e escuro.
-
-   Seções deste arquivo:
-   1. Contêiner geral
-   2. Cabeçalho
-   3. Seções (caixas brancas/escuras)
-   4. Painel do abrigo
-   5. Colunas (lateral + principal)
-   6. Campos, pesquisa e filtros
-   7. Lista de personagens
-   8. Responsividade
-   ========================================================= */
-
-/* ---------- 1. Contêiner geral ---------- */
-.app {
-  min-height: 100vh;
-  color: var(--cor-texto);
-  background-color: var(--cor-fundo);
-  transition: background-color 0.3s, color 0.3s;
-}
+/* Contêiner principal da aplicação. */
+.app { min-height: 100vh; color: var(--cor-texto); background: var(--cor-fundo); }
 
 .conteudo {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 20px 48px;
+  padding: 24px 20px 48px;
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-/* ---------- 2. Cabeçalho ---------- */
+/* Cabeçalho, saudação e menu. */
 .cabecalho {
   max-width: 1200px;
   margin: 0 auto;
   padding: 28px 20px 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
+  gap: 20px;
   flex-wrap: wrap;
 }
 
-.cabecalho-titulo {
-  margin: 0;
+.cabecalho-textos { flex: 1 1 280px; }
+.cabecalho-saudacao { margin: 0 0 4px; color: var(--cor-texto-suave); font-weight: 600; }
+.cabecalho-titulo { margin: 0; color: var(--cor-destaque); word-break: break-word; font-size: 2.25rem; }
+.cabecalho-descricao { margin: 4px 0 0; color: var(--cor-texto-suave); }
+
+.menu-navegacao {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding: 8px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra);
+}
+
+.menu-navegacao a,
+.menu-navegacao .menu-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 7px 11px;
+  border: 1px solid transparent;
+  border-radius: var(--raio-pequeno);
+  color: var(--cor-texto);
+  background: transparent;
+  text-decoration: none;
+  font-size: .9rem;
+  font-weight: 600;
+}
+
+.menu-navegacao a:hover,
+.menu-navegacao .menu-link:hover {
   color: var(--cor-destaque);
-  word-break: break-word;
+  background: var(--cor-destaque-suave);
 }
 
-.cabecalho-descricao {
-  margin: 4px 0 0;
-  color: var(--cor-texto-suave);
-}
-
-/* ---------- 3. Seções ---------- */
+/* Cartões que agrupam cada área. */
 .secao {
-  background-color: var(--cor-superficie);
+  background: var(--cor-superficie);
   border: 1px solid var(--cor-borda);
   border-radius: var(--raio);
   box-shadow: var(--sombra);
@@ -68,246 +76,67 @@
   width: 100%;
   margin: 0;
   padding: 8px 10px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-
+  color: var(--cor-texto);
+  background: transparent;
   border: none;
-  border-radius: var(--raio-pequeno);
-
-  background-color: transparent;
-  color: var(--cor-texto);
-
-  font-size: 1.1rem;
-  font-weight: 700;
   text-align: left;
-
-  cursor: pointer;
-  transition:
-    background-color 0.2s,
-    color 0.2s;
 }
+.titulo-secao:hover { color: var(--cor-destaque); background: var(--cor-destaque-suave); }
+.titulo-secao i { margin-right: 7px; }
+.conteudo-secao { margin-top: 16px; }
 
-.titulo-secao:hover {
-  background-color: var(--cor-destaque-suave);
-  color: var(--cor-destaque);
-}
+/* Painel de estatísticas. */
+.painel-grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; }
+.painel-item { display: flex; flex-direction: column; gap: 3px; padding: 14px 16px; border-radius: var(--raio-pequeno); background: var(--cor-superficie-2); }
+.painel-icone { color: var(--cor-destaque); font-size: 1.15rem; }
+.painel-item strong { font-size: 1.75rem; line-height: 1.1; color: var(--cor-destaque); }
+.painel-item span:last-child { color: var(--cor-texto-suave); font-size: .85rem; }
 
-.titulo-secao:focus-visible {
-  outline: 2px solid var(--cor-destaque);
-  outline-offset: 2px;
-}
+/* Duas colunas no desktop. */
+.colunas { display: grid; grid-template-columns: 340px 1fr; gap: 24px; align-items: start; }
+.coluna-lateral, .coluna-principal { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
 
-.conteudo-secao {
-  margin-top: 16px;
-}
+/* Campos e filtros. */
+.campo { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; min-width: 0; }
+.campo span { font-size: .875rem; color: var(--cor-texto-suave); }
+.filtros { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0 12px; }
 
-/* ---------- 4. Painel do abrigo ---------- */
-.painel-grade {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 12px;
-  margin-top: 16px;
-}
+/* Lista e contador. */
+.lista-topo { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.lista-topo h2 { margin: 0; }
+.lista-contador { color: var(--cor-texto-suave); font-size: .875rem; }
+.grade-personagens { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.mensagem-vazia { padding: 32px 16px; text-align: center; color: var(--cor-texto-suave); border: 2px dashed var(--cor-borda); border-radius: var(--raio); }
 
-.painel-item {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 14px 16px;
-  border-radius: var(--raio-pequeno);
-  background-color: var(--cor-superficie-2);
-}
+/* Feedback das ações. */
+.mensagem-sucesso { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; padding: 10px 12px; color: var(--cor-sucesso); background: var(--cor-sucesso-suave); border-radius: var(--raio-pequeno); }
+.mensagem-sucesso button { min-width: 32px; min-height: 32px; padding: 2px 8px; color: var(--cor-sucesso); background: transparent; border: none; }
 
-.painel-icone {
-  font-size: 1.25rem;
-}
+/* Rodapé da aplicação. */
+.rodape { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 24px 20px; border-top: 1px solid var(--cor-borda); color: var(--cor-texto-suave); text-align: center; font-size: .9rem; }
+.rodape strong { color: var(--cor-texto); }
+.rodape strong i { color: var(--cor-destaque); margin-right: 5px; }
+.rodape span:last-child { font-size: .8rem; }
 
-.painel-numero {
-  font-size: 1.75rem;
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--cor-destaque);
-}
-
-.painel-rotulo {
-  font-size: 0.875rem;
-  color: var(--cor-texto-suave);
-}
-
-/* ---------- 5. Colunas ---------- */
-.colunas {
-  display: grid;
-  grid-template-columns: 340px 1fr;
-  gap: 24px;
-  align-items: start;
-}
-
-.coluna-lateral,
-.coluna-principal {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  min-width: 0; /* evita que conteúdo largo estoure a coluna */
-}
-
-/* ---------- 6. Campos, pesquisa e filtros ---------- */
-.campo {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-bottom: 14px;
-}
-
-.campo span {
-  font-size: 0.875rem;
-  color: var(--cor-texto-suave);
-}
-
-.campo input,
-.campo select {
-  width: 100%;
-}
-
-.filtros {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 0 12px;
-}
-
-/* ---------- 7. Lista de personagens ---------- */
-.lista-topo {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.lista-topo h2 {
-  margin: 0;
-}
-
-.lista-contador {
-  font-size: 0.875rem;
-  color: var(--cor-texto-suave);
-}
-
-.mensagem-vazia {
-  padding: 32px 16px;
-  text-align: center;
-  color: var(--cor-texto-suave);
-  border: 2px dashed var(--cor-borda);
-  border-radius: var(--raio);
-}
-
-.grade-personagens {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 16px;
-}
-
-/* MENU */
-.menu-navegacao {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 24px;
-  padding: 10px;
-  border: 1px solid var(--cor-borda);
-  border-radius: var(--raio);
-  background-color: var(--cor-superficie);
-}
-
-.menu-navegacao a {
-  padding: 8px 12px;
-  border-radius: var(--raio-pequeno);
-  color: var(--cor-texto);
-  text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 600;
-  transition:
-    background-color 0.2s,
-    color 0.2s;
-}
-
-.menu-navegacao a:hover {
-  background-color: var(--cor-destaque-suave);
-  color: var(--cor-destaque);
-}
-
-.menu-navegacao .botao-tema {
-  padding: 8px 12px;
-  border: 1px solid var(--cor-borda);
-  border-radius: var(--raio-pequeno);
-  background-color: transparent;
-  color: var(--cor-texto);
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition:
-    background-color 0.2s,
-    color 0.2s,
-    border-color 0.2s;
-}
-
-.menu-navegacao .botao-tema:hover {
-  background-color: var(--cor-destaque-suave);
-  color: var(--cor-destaque);
-  border-color: var(--cor-destaque);
-}
-
-/*  rodapé */
-.rodape {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  margin-top: 32px;
-  padding: 24px 20px;
-  border-top: 1px solid var(--cor-borda);
-  color: var(--cor-texto-suave);
-  text-align: center;
-  font-size: 0.9rem;
-}
-
-.rodape strong {
-  color: var(--cor-texto);
-  font-size: 1rem;
-}
-
-.rodape span:last-child {
-  font-size: 0.8rem;
-}
-
-.fa-solid
-{
-  padding-right: 20px;
-}
-
-/* ---------- 8. Responsividade ----------
-   Abaixo de 900px a coluna lateral vai para cima
-   e tudo fica em uma única coluna.
-   (Ajustes finos para celular entram na Etapa 7.) */
+/* Responsividade para tablet e celular. */
 @media (max-width: 900px) {
-  .colunas {
-    grid-template-columns: 1fr;
-  }
+  .colunas { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 700px) {
-  .menu-navegacao {
-    flex-wrap: wrap;
-    gap: 6px;
-  }
+  .cabecalho { padding-top: 20px; }
+  .menu-navegacao { width: 100%; justify-content: stretch; }
+  .menu-navegacao a, .menu-navegacao .menu-link { flex: 1 1 140px; }
+  .conteudo { padding: 18px 14px 36px; }
+  .secao { padding: 16px; }
+}
 
-  .menu-navegacao a,
-  .menu-navegacao .botao-tema {
-    flex: 1 1 auto;
-    text-align: center;
-    font-size: 0.85rem;
-  }
+@media (max-width: 520px) {
+  .cabecalho-titulo { font-size: 1.8rem; }
+  .menu-navegacao a, .menu-navegacao .menu-link { flex-basis: 100%; }
+  .lista-topo { align-items: flex-start; flex-direction: column; }
 }

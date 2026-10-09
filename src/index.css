@@ -1,98 +1,58 @@
-/* =========================================================
-   index.css — estilos GLOBAIS do Multiverside
-   ---------------------------------------------------------
-   Aqui ficam apenas coisas que valem para a aplicação toda:
-   1. Variáveis de cor (tema claro e tema escuro)
-   2. Reset básico
-   3. Tipografia
-   4. Estilo base de campos e botões
-
-   Layout da página -> App.css
-   Estilo de cada componente -> arquivo .css do próprio componente
-   ========================================================= */
-
-/* ---------- 1. Variáveis: TEMA CLARO (padrão) ---------- */
+/* Variáveis de cores do tema claro. */
 :root {
-  /* Cores de fundo */
   --cor-fundo: #f5f4fa;
   --cor-superficie: #ffffff;
   --cor-superficie-2: #efedf6;
-
-  /* Cores de texto */
   --cor-texto: #1d1b26;
   --cor-texto-suave: #5f5a6e;
-
-  /* Bordas e sombras */
   --cor-borda: #e1deeb;
   --sombra: 0 4px 14px rgba(29, 27, 38, 0.08);
-
-  /* Cor principal (roxo "multiverso") */
   --cor-destaque: #6d3fd6;
   --cor-destaque-hover: #5a2fc0;
   --cor-destaque-suave: rgba(109, 63, 214, 0.12);
   --cor-texto-no-destaque: #ffffff;
-
-  /* Cores de estado */
   --cor-sucesso: #1f8a55;
   --cor-sucesso-suave: rgba(31, 138, 85, 0.12);
   --cor-perigo: #c62f3a;
   --cor-perigo-suave: rgba(198, 47, 58, 0.1);
-
-  /* Cores de raridade (usadas nos cards) */
   --cor-comum: #6b7280;
   --cor-raro: #2563eb;
   --cor-epico: #9333ea;
   --cor-lendario: #d97706;
-
-  /* Medidas */
   --raio: 12px;
   --raio-pequeno: 8px;
-
-  /* Fontes */
   --fonte: system-ui, "Segoe UI", Roboto, Ubuntu, sans-serif;
-
   color-scheme: light;
 }
 
-/* ---------- 1b. Variáveis: TEMA ESCURO ----------
-   Será ativado na Etapa 2, quando o App colocar
-   data-tema="escuro" no elemento raiz da página.
-   Só as cores mudam; o resto do CSS continua igual. */
+/* Tema escuro: apenas as variáveis mudam. */
 [data-tema="escuro"] {
   --cor-fundo: #121019;
   --cor-superficie: #1c1926;
   --cor-superficie-2: #262233;
-
   --cor-texto: #ece9f5;
   --cor-texto-suave: #a7a2b8;
-
   --cor-borda: #322d42;
   --sombra: 0 4px 14px rgba(0, 0, 0, 0.45);
-
   --cor-destaque: #a98bff;
   --cor-destaque-hover: #bba3ff;
   --cor-destaque-suave: rgba(169, 139, 255, 0.16);
   --cor-texto-no-destaque: #16121f;
-
   --cor-sucesso: #4fcf8d;
   --cor-sucesso-suave: rgba(79, 207, 141, 0.14);
   --cor-perigo: #ff6b76;
   --cor-perigo-suave: rgba(255, 107, 118, 0.14);
-
   --cor-comum: #9ca3af;
   --cor-raro: #60a5fa;
   --cor-epico: #c084fc;
   --cor-lendario: #fbbf24;
-
   color-scheme: dark;
 }
 
-/* ---------- 2. Reset básico ---------- */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+/* Reset básico para manter medidas previsíveis. */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
@@ -101,144 +61,67 @@ body {
   font-size: 16px;
   line-height: 1.5;
   color: var(--cor-texto);
-  background-color: var(--cor-fundo);
+  background: var(--cor-fundo);
   -webkit-font-smoothing: antialiased;
 }
 
-#root {
-  min-height: 100vh;
-}
+#root { min-height: 100vh; }
+img { max-width: 100%; display: block; }
+h1, h2, h3, h4 { line-height: 1.2; }
+p { margin: 0 0 8px; }
 
-img {
-  max-width: 100%;
-  display: block;
-}
-
-/* ---------- 3. Tipografia ---------- */
-h1,
-h2,
-h3,
-h4 {
-  margin: 0 0 12px;
-  line-height: 1.2;
-  color: inherit;
-}
-
-h1 {
-  font-size: 2.25rem;
-}
-
-h2 {
-  font-size: 1.4rem;
-}
-
-h3 {
-  font-size: 1.15rem;
-}
-
-h4 {
-  font-size: 1rem;
-}
-
-p {
-  margin: 0 0 8px;
-}
-
-/* ---------- 4. Campos de formulário ---------- */
-input,
-select {
+/* Campos globais de formulário. */
+input, select {
+  width: 100%;
+  min-height: 40px;
+  padding: 8px 12px;
   font: inherit;
   color: var(--cor-texto);
-  background-color: var(--cor-superficie);
+  background: var(--cor-superficie);
   border: 1px solid var(--cor-borda);
   border-radius: var(--raio-pequeno);
-  padding: 8px 12px;
-  min-height: 40px;
 }
 
-input:focus,
-select:focus {
+input:focus, select:focus {
   outline: 2px solid var(--cor-destaque);
   outline-offset: 1px;
   border-color: var(--cor-destaque);
 }
 
-label {
-  font-weight: 500;
-}
-
-/* ---------- 4b. Botões ---------- */
+/* Estilo base dos botões. */
 button {
+  min-height: 40px;
+  padding: 8px 16px;
   font: inherit;
   font-weight: 600;
   cursor: pointer;
   color: var(--cor-texto-no-destaque);
-  background-color: var(--cor-destaque);
+  background: var(--cor-destaque);
   border: 1px solid transparent;
   border-radius: var(--raio-pequeno);
-  padding: 8px 16px;
-  min-height: 40px;
-  transition: background-color 0.2s, opacity 0.2s;
+  transition: background-color .2s, color .2s, border-color .2s, transform .2s;
 }
 
-button:hover {
-  background-color: var(--cor-destaque-hover);
-}
+button:hover { background: var(--cor-destaque-hover); }
+button:focus-visible { outline: 2px solid var(--cor-destaque); outline-offset: 2px; }
+button:disabled { cursor: not-allowed; opacity: .55; }
 
-button:focus-visible {
-  outline: 2px solid var(--cor-destaque);
-  outline-offset: 2px;
-}
-
-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-button:disabled:hover {
-  background-color: var(--cor-destaque);
-}
-
-/* ---------- 4c. Variações de botão ----------
-   Usadas com className no JSX, por exemplo:
-   <button className="botao-secundario">...</button> */
-
-/* Secundário: contorno, para ações menos importantes */
+/* Botão secundário e botão de perigo. */
 .botao-secundario {
   color: var(--cor-destaque);
-  background-color: transparent;
+  background: transparent;
   border-color: var(--cor-destaque);
 }
+.botao-secundario:hover { color: var(--cor-destaque); background: var(--cor-destaque-suave); }
+.botao-secundario.ativo { color: var(--cor-texto-no-destaque); background: var(--cor-destaque); }
+.botao-perigo { color: var(--cor-perigo); background: transparent; border-color: var(--cor-perigo); }
+.botao-perigo:hover { color: var(--cor-perigo); background: var(--cor-perigo-suave); }
 
-.botao-secundario:hover {
-  background-color: var(--cor-destaque-suave);
-}
-
-/* Estado "ligado" (ex.: filtro de favoritos ativo) */
-.botao-secundario.ativo {
-  color: var(--cor-texto-no-destaque);
-  background-color: var(--cor-destaque);
-}
-
-/* Perigo: ações destrutivas, como remover */
-.botao-perigo {
-  color: var(--cor-perigo);
-  background-color: transparent;
-  border-color: var(--cor-perigo);
-}
-
-.botao-perigo:hover {
-  background-color: var(--cor-perigo-suave);
-}
-
-/* ---------- 5. Mensagem de erro ----------
-   Usada no card (edição) e no formulário de cadastro. */
+/* Mensagem de erro dos formulários. */
 .mensagem-erro {
   margin: 0;
   padding: 8px 12px;
-  font-size: 0.9rem;
-  font-weight: 500;
   color: var(--cor-perigo);
-  background-color: var(--cor-perigo-suave);
+  background: var(--cor-perigo-suave);
   border-radius: var(--raio-pequeno);
 }
