@@ -56,6 +56,8 @@ function App() {
 
   const [mostrarFavoritos, setMostrarFavoritos] = useState(false);
 
+  const [filtroStatus, setFiltroStatus] = useState("Todos");
+
 
 
   /* Identidade personalizada do abrigo e do usuário. */
@@ -93,6 +95,10 @@ function App() {
   const [cadastroAberto, setCadastroAberto] = useState(false);
 
   const [filtrosAbertos, setFiltrosAbertos] = useState(false);
+
+  /* Menu hamburguer (usado em telas pequenas). */
+
+  const [menuAberto, setMenuAberto] = useState(false);
 
 
 
@@ -324,6 +330,8 @@ function App() {
 
     const correspondeFavoritos = !mostrarFavoritos || personagem.favorito === true;
 
+    const correspondeStatus = filtroStatus === "Todos" || personagem.status === filtroStatus;
+
 
 
     return (
@@ -338,7 +346,9 @@ function App() {
 
       correspondeObra &&
 
-      correspondeFavoritos
+      correspondeFavoritos &&
+
+      correspondeStatus
 
     );
 
@@ -350,6 +360,8 @@ function App() {
 
   function irParaSecao(id, abrir = null) {
 
+    setMenuAberto(false);
+
     if (abrir) abrir(true);
 
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -358,9 +370,27 @@ function App() {
 
 
 
+  /* Navegação para a lista mostrando apenas os personagens adotados. */
+
+  function irParaAdotados() {
+
+    setMenuAberto(false);
+
+    setFiltroStatus("Adotado");
+
+    setFiltrosAbertos(true);
+
+    document.getElementById("personagens")?.scrollIntoView({ behavior: "smooth" });
+
+  }
+
+
+
   /* Navegação para a lista com o filtro de favoritos ativado. */
 
   function irParaFavoritos() {
+
+    setMenuAberto(false);
 
     setMostrarFavoritos(true);
 
@@ -388,7 +418,7 @@ function App() {
 
           </p>
 
-          <h1 className="cabecalho-titulo">{nomeAbrigo}</h1>
+          <h1 className="cabecalho-titulo">{nomeAbrigo.trim() || "Multiverside"}</h1>
 
           <p className="cabecalho-descricao">
 
@@ -402,7 +432,22 @@ function App() {
 
         {/* Menu de navegação da página. */}
 
-        <nav className="menu-navegacao" aria-label="Navegação principal">
+        <button
+          type="button"
+          className="menu-hamburguer"
+          onClick={() => setMenuAberto((aberto) => !aberto)}
+          aria-expanded={menuAberto}
+          aria-controls="menu-principal"
+          aria-label={menuAberto ? "Fechar menu" : "Abrir menu"}
+        >
+          <i className={`fa-solid ${menuAberto ? "fa-xmark" : "fa-bars"}`} />
+        </button>
+
+        <nav
+          id="menu-principal"
+          className={menuAberto ? "menu-navegacao aberto" : "menu-navegacao"}
+          aria-label="Navegação principal"
+        >
 
           <button className="menu-link" onClick={() => irParaSecao("painel", setPainelAberto)}>
 
@@ -419,6 +464,12 @@ function App() {
           <button className="menu-link" onClick={() => irParaSecao("personagens")}>
 
             <i className="fa-solid fa-users" /> Personagens
+
+          </button>
+
+          <button className="menu-link" onClick={irParaAdotados}>
+
+            <i className="fa-solid fa-circle-check" /> Adotados
 
           </button>
 
@@ -645,6 +696,8 @@ function App() {
                     <label className="campo"><span>Espécie</span><select value={filtroEspecie} onChange={(e) => setFiltroEspecie(e.target.value)}><option>Todas</option>{especiesDisponiveis.map((especie) => <option key={especie}>{especie}</option>)}</select></label>
 
                     <label className="campo"><span>Personalidade</span><select value={filtroPersonalidade} onChange={(e) => setFiltroPersonalidade(e.target.value)}><option>Todas</option>{personalidadesDisponiveis.map((p) => <option key={p}>{p}</option>)}</select></label>
+
+                    <label className="campo"><span>Status</span><select value={filtroStatus} onChange={(e) => setFiltroStatus(e.target.value)}><option>Todos</option><option>Disponível</option><option>Adotado</option></select></label>
 
                     <label className="campo"><span>Raridade</span><select value={filtroRaridade} onChange={(e) => setFiltroRaridade(e.target.value)}><option>Todas</option><option>Comum</option><option>Raro</option><option>Épico</option><option>Lendário</option></select></label>
 
