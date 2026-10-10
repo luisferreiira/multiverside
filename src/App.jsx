@@ -475,7 +475,7 @@ function App() {
 
           <button className="menu-link" onClick={irParaFavoritos}>
 
-            <i className="fa-solid fa-heart" /> Favoritos
+            <i className="fa-solid fa-star" /> Favoritos
 
           </button>
 
@@ -715,7 +715,7 @@ function App() {
 
                   >
 
-                    <i className={`fa-solid ${mostrarFavoritos ? "fa-heart" : "fa-heart"}`} />
+                    <i className="fa-solid fa-star" />
 
                     {mostrarFavoritos ? " Mostrar todos" : " Meus favoritos"}
 

@@ -92,7 +92,7 @@ function PersonagemCard({ personagem, onAdotar, onInteragir, onEditar, onRemover
             aria-label={personagem.favorito ? "Desfavoritar personagem" : "Favoritar personagem"}
             title={personagem.favorito ? "Desfavoritar" : "Favoritar"}
           >
-            <i className={`fa-${personagem.favorito ? "solid" : "regular"} fa-heart`} />
+            <i className={`fa-${personagem.favorito ? "solid" : "regular"} fa-star`} />
           </button>
         </div>
 
