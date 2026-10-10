@@ -51,7 +51,7 @@ export const personagens = [
     personalidade: "Corajosa",
     raridade: "Épico",
     status: "Disponível",
-    imagem: "/img/starlight.png",
+    imagem: "/img/luzestrela.jpg",
     obra: "The Boys",
   },
 
@@ -63,7 +63,7 @@ export const personagens = [
     personalidade: "Determinada",
     raridade: "Lendário",
     status: "Disponível",
-    imagem: "/img/maeve.png",
+    imagem: "/img/maeve.jpg",
     obra: "The Boys",
   },
 
@@ -75,7 +75,7 @@ export const personagens = [
     personalidade: "Competitivo",
     raridade: "Épico",
     status: "Disponível",
-    imagem: "/img/atrain.png",
+    imagem: "/img/atrain.jpg",
     obra: "The Boys",
   },
 
@@ -87,7 +87,7 @@ export const personagens = [
     personalidade: "Inseguro",
     raridade: "Raro",
     status: "Disponível",
-    imagem: "/img/thedeep.png",
+    imagem: "/img/thedeep.jpg",
     obra: "The Boys",
   },
 
@@ -99,7 +99,7 @@ export const personagens = [
     personalidade: "Silencioso",
     raridade: "Lendário",
     status: "Disponível",
-    imagem: "/img/blacknoir.png",
+    imagem: "/img/blacknoir.jpg",
     obra: "The Boys",
   },
 
@@ -115,7 +115,7 @@ export const personagens = [
     personalidade: "Protetor",
     raridade: "Lendário",
     status: "Disponível",
-    imagem: "/img/edward.png",
+    imagem: "/img/edward.jpg",
     obra: "Crepúsculo",
   },
 
@@ -127,7 +127,7 @@ export const personagens = [
     personalidade: "Determinada",
     raridade: "Épico",
     status: "Disponível",
-    imagem: "/img/bella.png",
+    imagem: "/img/bella.jpg",
     obra: "Crepúsculo",
   },
 
@@ -139,7 +139,7 @@ export const personagens = [
     personalidade: "Leal",
     raridade: "Lendário",
     status: "Disponível",
-    imagem: "/img/jacob.png",
+    imagem: "/img/jacob.jpg",
     obra: "Crepúsculo",
   },
 
@@ -151,7 +151,7 @@ export const personagens = [
     personalidade: "Otimista",
     raridade: "Épico",
     status: "Disponível",
-    imagem: "/img/alice.png",
+    imagem: "/img/alice.jpg",
     obra: "Crepúsculo",
   },
 
@@ -163,7 +163,7 @@ export const personagens = [
     personalidade: "Orgulhosa",
     raridade: "Épico",
     status: "Disponível",
-    imagem: "/img/rosalie.png",
+    imagem: "/img/rosalie.jpg",
     obra: "Crepúsculo",
   },
 
@@ -175,7 +175,7 @@ export const personagens = [
     personalidade: "Divertido",
     raridade: "Épico",
     status: "Disponível",
-    imagem: "/img/emmett.png",
+    imagem: "/img/emmett.jpg",
     obra: "Crepúsculo",
   },
 
@@ -203,7 +203,7 @@ export const personagens = [
     personalidade: "Gênio",
     raridade: "Lendário",
     status: "Disponível",
-    imagem: "/img/ironman.png",
+    imagem: "/img/ironman.jpg",
     obra: "Marvel",
   },
 
@@ -215,7 +215,7 @@ export const personagens = [
     personalidade: "Honrado",
     raridade: "Lendário",
     status: "Disponível",
-    imagem: "/img/captainamerica.png",
+    imagem: "/img/captainamerica.jpg",
     obra: "Marvel",
   },
 
@@ -227,7 +227,7 @@ export const personagens = [
     personalidade: "Corajoso",
     raridade: "Lendário",
     status: "Disponível",
-    imagem: "/img/thor.png",
+    imagem: "/img/thor.jpg",
     obra: "Marvel",
   },
 
@@ -239,7 +239,7 @@ export const personagens = [
     personalidade: "Furioso",
     raridade: "Lendário",
     status: "Disponível",
-    imagem: "/img/hulk.png",
+    imagem: "/img/hulk.jpg",
     obra: "Marvel",
   },
 
@@ -251,7 +251,7 @@ export const personagens = [
     personalidade: "Estratégica",
     raridade: "Épico",
     status: "Disponível",
-    imagem: "/img/blackwidow.png",
+    imagem: "/img/blackwidow.jpg",
     obra: "Marvel",
   },
 
@@ -263,7 +263,7 @@ export const personagens = [
     personalidade: "Poderosa",
     raridade: "Lendário",
     status: "Disponível",
-    imagem: "/img/scarlet_witch.webp",
+    imagem: "/img/scarletwitch.jpg",
     obra: "Marvel",
   },
 
@@ -275,7 +275,7 @@ export const personagens = [
     personalidade: "Astuto",
     raridade: "Lendário",
     status: "Disponível",
-    imagem: "/img/loki.png",
+    imagem: "/img/loki.jpg",
     obra: "Marvel",
   },
 
@@ -287,7 +287,7 @@ export const personagens = [
     personalidade: "Sarcástico",
     raridade: "Lendário",
     status: "Disponível",
-    imagem: "/img/doctorstrange.png",
+    imagem: "/img/doctorstrange.jpg",
     obra: "Marvel",
   },
 
@@ -299,7 +299,7 @@ export const personagens = [
     personalidade: "Líder",
     raridade: "Épico",
     status: "Disponível",
-    imagem: "/img/blackpanther.png",
+    imagem: "/img/blackpanther.jpg",
     obra: "Marvel",
   },
 ];

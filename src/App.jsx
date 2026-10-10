@@ -86,7 +86,7 @@ function App() {
 
   /* Implementação de colapsar cada seção da interface. */
 
-  const [painelAberto, setPainelAberto] = useState(false);
+  const [painelAberto, setPainelAberto] = useState(true);
 
   const [identidadeAberta, setIdentidadeAberta] = useState(false);
 
