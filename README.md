@@ -5,6 +5,7 @@ Aplicação web desenvolvida para a disciplina de **Tecnologia em Desenvolviment
 O Multiverside adapta a proposta do projeto **PixelPet Rescue** para uma central de gerenciamento e adoção de personagens fictícios de filmes, séries, livros, quadrinhos e outros universos.
 
 🔗 **Aplicação publicada:** https://multiverside.vercel.app/
+
 📄 **Relatório de planejamento (Etapa 1):** https://docs.google.com/document/d/1iB9yvL__B5LbhoVHbMfgS8dnIAKA36A4eyBN6UNZkic/edit?usp=sharing
 
 ## 👥 Equipe
@@ -30,7 +31,7 @@ Praticar JavaScript moderno, React, componentes, estados, eventos, objetos, arra
 - localStorage
 - Vercel (publicação)
 
-## 🚀 Como executar
+## 🚀 Como executar - local
 
 ```bash
 npm install
@@ -164,16 +165,6 @@ Cada caso abaixo foi executado com **testes automatizados** (Vitest + Testing Li
   - Resultado obtido: ✅ passou.
 
 ## 🕓 Versões intermediárias
-
-| Commit | Data | Autor | Descrição |
-|---|---|---|---|
-| `1b0c425` | 06/10 | Luís | Primeira versão: componentes e dados de gerenciamento de personagens |
-| `fa12614` | 06/10 | Luís | Primeira documentação no README |
-| `298ecf9` | 07/10 | Maria | Reorganização do CSS, cartões com selos e melhoria da interface |
-| `7da055e` | 07/10 | Luís | Filtros de pesquisa, campo de obra e gerenciamento de personagens |
-| `e6d8738` | 08/10 | Luís | Refatoração do código, persistência mais segura e novos dados |
-| `f25f649` | 10/10 | Luís | Imagens dos personagens e painel aberto por padrão |
-| atual | 10/10 | Dupla | Menu hambúrguer, filtro de adotados, nome do abrigo vazio e README completo |
 
 ### Melhorias e correções feitas ao longo das versões
 
