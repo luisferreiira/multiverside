@@ -187,14 +187,14 @@
 }
 
 .favorito {
-  color: var(--cor-perigo);
+  color: var(--cor-favorito);
   background: transparent;
   border-color: var(--cor-borda);
 }
 
 .favorito:hover {
-  color: var(--cor-perigo);
-  background: var(--cor-perigo-suave);
+  color: var(--cor-favorito);
+  background: var(--cor-favorito-suave);
 }
 
 /* Formulário de edição dentro do card. */
