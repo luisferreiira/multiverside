@@ -15,7 +15,7 @@ O Multiverside adapta a proposta do projeto **PixelPet Rescue** para uma central
 | Luís Ferreira | Funcionalidades e adoção, desafios e integração, testes e documentação |
 | Maria Cecília | Dados e criaturas, interface e componentes, testes e documentação |
 
-Turma: 2° Período de Sistemas de Informação
+Turma: 2º período de Sistemas de Informação
 
 ## 🎯 Objetivo
 
@@ -40,7 +40,7 @@ npm run dev
 
 Depois, abra o endereço informado pelo Vite no navegador (normalmente `http://localhost:5173`).
 
-Para validar a versão de produção:
+Para verificar o código com ESLint e gerar a versão de produção, execute os comandos abaixo.
 
 ```bash
 npm run lint
@@ -64,7 +64,7 @@ Cada personagem é um objeto e a coleção é um array, em `src/data/personagens
 | `obra` | texto | Universo de origem (The Boys, Crepúsculo, Marvel...) |
 | `favorito` | booleano | Marcado pelo usuário |
 
-Os dados iniciais reúnem personagens de **The Boys**, **Crepúsculo** e **Marvel**.
+A coleção inicial tem 24 personagens de **The Boys**, **Crepúsculo** e **Marvel**.
 
 ## 📌 Funcionalidades
 
@@ -76,7 +76,7 @@ Os dados iniciais reúnem personagens de **The Boys**, **Crepúsculo** e **Marve
 - Adoção com atualização de status
 - Menu "Adotados" para ver apenas os adotados
 - Interação com o personagem
-- Edição no próprio cartão
+- Edição de nome, poder e personalidade no próprio cartão
 - Remoção com confirmação
 - Painel com indicadores da coleção
 - Identidade personalizada do abrigo
@@ -122,47 +122,37 @@ Não foram escolhidos: Hora de cuidar, Adoção com história, Conquistas do cui
 
 ## 🧪 Regras e testes dos desafios
 
-Cada caso abaixo foi executado com **testes automatizados** (Vitest + Testing Library, em ambiente simulado de navegador) em 10/10/2026. Todos passaram (20 testes, incluindo os da central de adoção). A parte visual e a publicação devem ser conferidas manualmente em https://multiverside.vercel.app/.
+Os casos abaixo descrevem o comportamento esperado e podem ser conferidos manualmente na aplicação.
 
 ### 1. Encontre seu companheiro
 
-- **Regra:** a pesquisa por nome e todos os filtros (obra, espécie, personalidade, raridade e status) funcionam juntos, e um personagem só aparece se atender a todos. As opções dos filtros são montadas a partir dos próprios dados, então novos cadastros aparecem sozinhos. Os filtros não alteram os dados salvos.
+- **Regra:** a pesquisa por nome e todos os filtros (obra, espécie, personalidade, raridade e status) funcionam juntos, e um personagem só aparece se atender a todos. As opções de obra, espécie e personalidade vêm da coleção. Raridade e status têm opções fixas. Os filtros não alteram os dados salvos.
 - **Teste esperado:** pesquisar "Thor" mostra apenas o Thor. Selecionar espécie Vampiro e raridade Lendário mostra só quem atende aos dois critérios.
-  - Resultado obtido: ✅ passou.
 - **Exceção:** pesquisar um nome inexistente mostra "Nenhum personagem encontrado.", sem travar a página.
-  - Resultado obtido: ✅ passou.
 
 ### 2. Meus favoritos
 
-- **Regra:** o botão de coração alterna o personagem entre favorito e não favorito. O botão "Meus favoritos" (ou o menu Favoritos) mostra só os favoritos. Favoritar não altera espécie, poder, raridade nem status.
-- **Teste esperado:** favoritar o Thor, ativar o filtro e recarregar a página: ele continua favorito e aparece na lista de favoritos.
-  - Resultado obtido: ✅ passou.
+- **Regra:** o botão de estrela alterna o personagem entre favorito e não favorito. O botão "Meus favoritos" (ou o menu Favoritos) mostra só os favoritos. Favoritar não altera espécie, poder, raridade nem status.
+- **Teste esperado:** favoritar o Thor, recarregar a página e abrir a lista de favoritos. O Thor continua marcado e aparece na lista.
 - **Exceção:** com o filtro ativo e nenhum favorito, aparece "Nenhum personagem encontrado."; ao desfavoritar, o personagem continua na coleção principal.
-  - Resultado obtido: ✅ passou.
 
 ### 3. Identidade do abrigo
 
 - **Regra:** o nome do abrigo aparece no cabeçalho e o tema claro/escuro altera só a aparência. As preferências ficam salvas no navegador.
 - **Teste esperado:** trocar o nome para "Abrigo Teste" e ativar o tema escuro; após recarregar, os dois continuam ativos.
-  - Resultado obtido: ✅ passou.
 - **Exceção:** com o nome do abrigo vazio, o título volta para "Multiverside". Trocar o tema não apaga personagens, favoritos nem adoções.
-  - Resultado obtido: ✅ passou.
 
 ### 4. Abrigo com memória
 
-- **Regra:** personagens, nome do abrigo, nome do usuário e tema são salvos no `localStorage` a cada alteração. Uma chave de versão atualiza a lista inicial sem perder os personagens cadastrados pelo usuário.
+- **Regra:** personagens, nome do abrigo, nome do usuário e tema são salvos no `localStorage` a cada alteração. Quando a versão da lista muda, a aplicação preserva os personagens cadastrados pelo usuário e repõe os registros iniciais. A reposição pode descartar favoritos, adoções, edições e remoções nesses registros.
 - **Teste esperado:** cadastrar um personagem, favoritar outro e adotar um terceiro; após recarregar, tudo é recuperado.
-  - Resultado obtido: ✅ passou.
-- **Exceção:** se o dado salvo estiver corrompido, o app carrega a lista inicial sem impedir a abertura.
-  - Resultado obtido: ✅ passou.
+- **Exceção:** se o valor salvo da coleção for um JSON inválido ou não representar um array, o app carrega a lista inicial sem impedir a abertura.
 
 ### 5. Painel do abrigo
 
 - **Regra:** os totais (personagens, disponíveis, adotados, favoritos e por espécie) são calculados a partir da lista atual, nunca digitados manualmente.
 - **Teste esperado:** ao adotar um personagem, Disponíveis diminui em 1 e Adotados aumenta em 1.
-  - Resultado obtido: ✅ passou.
 - **Exceção:** remover o único personagem de uma espécie (Lobisomem) faz essa espécie sair do painel, e remover todos deixa os contadores em zero, sem valores negativos.
-  - Resultado obtido: ✅ passou.
 
 ## 🕓 Versões intermediárias
 
@@ -172,7 +162,7 @@ Cada caso abaixo foi executado com **testes automatizados** (Vitest + Testing Li
 - **Validação numérica (`e6d8738`):** o poder passou a ser convertido com `Number()` antes de comparar com 0 e 100, evitando comparar texto com número.
 - **Estado sempre atualizado (`e6d8738`):** as ações passaram a usar `setPersonagens((lista) => ...)`, que parte da lista mais recente e evita sobrescrever alterações.
 - **Persistência mais segura (`e6d8738`):** leitura do `localStorage` com `try/catch`, para não quebrar com dado inválido, e chave de versão que atualiza a lista inicial preservando os cadastrados.
-- **Busca melhor (`e6d8738`):** comparação com `toLocaleLowerCase("pt-BR")`, ignorando maiúsculas e minúsculas, e opções de filtro geradas dos dados.
+- **Busca melhor (`e6d8738`):** comparação com `toLocaleLowerCase("pt-BR")`, ignorando maiúsculas e minúsculas, e opções de obra, espécie e personalidade geradas a partir da coleção.
 - **Imagem com alternativa (`298ecf9`):** quando a imagem não carrega (`onError`), o cartão mostra a inicial do nome em vez de ficar vazio.
 - **Contador visível (`f25f649`):** o painel passou a abrir por padrão para que o contador de adoções apareça logo na entrada.
 - **Navegação no celular:** o menu virou ícone de hambúrguer em telas de até 700 px.
@@ -212,9 +202,9 @@ public/
 
 ## 🤖 Uso de IA
 
-A IA foi utilizada como apoio ao planejamento, à revisão dos requisitos, à análise do código, à identificação de inconsistências (como o erro dos caminhos de imagem), à criação do menu hambúrguer e do filtro de adotados, à elaboração dos testes automatizados e à redação desta documentação.
+A IA foi utilizada como apoio ao planejamento, à revisão dos requisitos, à análise do código, à identificação de inconsistências (como o erro dos caminhos de imagem), à criação do menu hambúrguer e do filtro de adotados e à redação desta documentação.
 
-As sugestões foram adaptadas ao projeto e verificadas por revisão do código, pelos comandos `npm run lint` e `npm run build`, pelos testes automatizados e pela execução da aplicação no navegador. A dupla se compromete a explicar o código entregue e a alterar regras na apresentação sem consulta à IA.
+A equipe adaptou as sugestões ao projeto e revisou o código. A dupla se compromete a explicar o código entregue e a alterar regras na apresentação sem consulta à IA.
 
 ## ⚖️ Aviso
 
